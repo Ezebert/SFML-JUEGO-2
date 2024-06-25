@@ -13,14 +13,19 @@ public:
 	//Sets & Gets
 	//Funciones Pricipales
 	void update(sf::RenderTarget* target);
-	void draw(sf::RenderTarget * target);
+	void draw(sf::RenderTarget* target);
 	//Funciones Aux
 protected:
 	//init
 	void initVariables();
 	void initShape();
-	//Update <KeyBoard Press>
+
+	//Update
+	//	<Collision>
+	void updateWindowsBoundsCollision(sf::RenderTarget*target);
+	//  <KeyBoard Press>
 	void updateInput();
+	
 	//Draw
 	
 };
