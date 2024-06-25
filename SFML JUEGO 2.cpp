@@ -1,27 +1,25 @@
 // SFML JUEGO 2.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 #include <SFML/Graphics.hpp>
-
+#include "gamePlay.h"
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML en Acción!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Blue);
+    //Inicializacion de semilla Aleatoria
+    srand(static_cast<unsigned>(time(0)));
+    //Inicializacion game Objecto
+    gamePlay game;
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
+    //Game Loop
+    while (game.runnig() && !game.getEndGame())
+    {   
+        //Update
+        game.upDate();
+        //Render
+        game.draw();
     }
+    //Game Loop
 
+    //End Aplicaction
     return 0;
 }
 
