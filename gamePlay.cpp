@@ -18,7 +18,7 @@ const bool gamePlay::getEndGame() const
 void gamePlay::upDate()
 {
 	this->updateEvent();
-	this->player.update();
+	this->player.update(this->window);
 } 
 
 void gamePlay::draw()

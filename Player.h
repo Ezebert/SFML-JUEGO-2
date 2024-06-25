@@ -4,21 +4,23 @@ class Player
 {
 private:
 	sf::RectangleShape shape;
+	float speed;
 public:
 	//Constructor y Destructor
 	Player();
+	Player(float x, float y);
 	~Player();
 	//Sets & Gets
 	//Funciones Pricipales
-	void update();
+	void update(sf::RenderTarget* target);
 	void draw(sf::RenderTarget * target);
-	
 	//Funciones Aux
 protected:
 	//init
 	void initVariables();
 	void initShape();
-	//Update
+	//Update <KeyBoard Press>
+	void updateInput();
 	//Draw
 	
 };
