@@ -8,7 +8,7 @@ int main()
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Blue);
 
-    while (window.isOpen()) 
+    while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
