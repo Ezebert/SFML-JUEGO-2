@@ -145,7 +145,9 @@ void gamePlay::initTextEndGame()
 	this->textEndGame.setCharacterSize(60);
 	this->textEndGame.setFillColor(sf::Color::Red);
 	this->textEndGame.setString("Gamame Over ");
-	this->textEndGame.setPosition(sf::Vector2f(20,300));
+	this->textEndGame.setPosition(sf::Vector2f(
+		this->window->getSize().x / 2 ,
+		this->window->getSize().y-textEndGame.getGlobalBounds().width));
 
 }
 //======= UPDATE Secundario ======= 
@@ -166,7 +168,7 @@ void gamePlay::updateCollision() //Enemies & Player
 			switch (this->swagBalls[i].getType())
 			{
 			case SwagBallsType::DAMEGING:
-				this->player.takeDamage(100);
+				this->player.takeDamage(this->player.getMaxHp()/2 + 1 );
 				break;
 			case SwagBallsType::HEALING:
 				this->player.gainHealth(1);
