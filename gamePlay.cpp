@@ -1,9 +1,14 @@
 #include "gamePlay.h"
+#include <iostream>
+#include <sstream>
 //======= Constructor & Destructor =======
 gamePlay::gamePlay()
 {
 	this->initVariables();
 	this->initWindows();
+
+	this->initFont();
+	this->initTextPoint();
 }
 gamePlay::~gamePlay()
 {
@@ -17,27 +22,30 @@ const bool gamePlay::getEndGame() const
 //======= FUNCIONES =======
 void gamePlay::upDate()
 {
+	this->updateText();
+
 	this->updateCollision();
+	this->spawnSwagBalls();
 
 	this->updateEvent();
 	this->player.update(this->window);
-
-	this->spawnSwagBalls();
-	
 	
 } 
 
 
 void gamePlay::draw()
-{
+{	//this->window->draw();
 	this->window->clear();
-	//this->window->draw();
+	//=============================
 	this->player.draw(this->window);
 
 	for (auto& e : this->swagBalls)
 	{
 		e.draw(*this->window);
 	}
+
+	this->drawTextPoint(*this->window);
+	//=============================
 	this->window->display();
 }
 
@@ -67,7 +75,7 @@ void gamePlay::initVariables()
 	this->spawTimer = 10.f;
 	this->spawTimerMax = this->spawTimer;
 	this->maxSwagsBalls = 10;
-
+	this->points = 0;
 }
 
 void gamePlay::initWindows()
@@ -77,13 +85,43 @@ void gamePlay::initWindows()
 	this->window->setFramerateLimit(60);
 }
 
-//======= UPDATE <Collision> =======
-void gamePlay::updateCollision()
+void gamePlay::initFont()
+{
+	if (!this->font.loadFromFile("font/SIXTY.ttf")) {
+		std::cout << " ERROR::GAME::InitFont";
+	}
+}
+
+void gamePlay::initTextPoint()
+{
+	this->textPoint.setFont(this->font);
+	
+	this->textPoint.setCharacterSize(20);
+	this->textPoint.setFillColor(sf::Color::White);
+
+	this->textPoint.setString(" N/D ");
+
+
+}
+//======= UPDATE Secundario ======= 
+void gamePlay::updateText()
+{
+	std::stringstream ss;
+	ss << " Point: " << this->points;
+	this->textPoint.setString(ss.str());
+}
+
+//======= UPDATE <Collision> ======= 
+void gamePlay::updateCollision() //Enemies & Player
 {
 	for (size_t i = 0; i < this->swagBalls.size(); i++)
 	{
-		if (this->player.getShape().getGlobalBounds().intersects(this->swagBalls[i].getShape().getGlobalBounds()))
-			swagBalls.erase(swagBalls.begin() + i); 
+		if (this->player.getShape().getGlobalBounds().intersects(this->swagBalls[i].getShape().getGlobalBounds())) {
+			swagBalls.erase(swagBalls.begin() + i);
+			this->points++;
+		}
+			
+
 	}
 }
 //======= UPDATE <KeyBoard Press> =======
@@ -106,3 +144,7 @@ void gamePlay::updateEvent()
 	}
 }
 //======= DRAW =======
+void gamePlay::drawTextPoint(sf::RenderTarget& target)
+{
+	target.draw(this->textPoint);
+}

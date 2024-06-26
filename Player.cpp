@@ -46,7 +46,6 @@ void Player::initVariables()
 	this->speed = 10.f;
 	this->hp = 10;
 	this->maxHp = hp;
-	this->point = 0;
 }
 void Player::initShape()
 {

@@ -7,7 +7,6 @@ private:
 	float speed;
 	int hp;
 	int maxHp;
-	int point;
 public:
 	//Constructor y Destructor
 	Player();

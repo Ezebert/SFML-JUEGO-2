@@ -9,11 +9,11 @@ class gamePlay
 private:
 	//Variables
 	bool endGame;
-
+	//<Timer>
 	float spawTimerMax;
 	float spawTimer;
 	int maxSwagsBalls;
-
+	int points;
 	//Windows
 	sf::VideoMode videoMode;
 	sf::RenderWindow* window;
@@ -24,6 +24,9 @@ private:
 	//Mouse Posicion
 	//Resources
 	//Text	
+	sf::Font font;
+	sf::Text textPoint;
+	
 public:
 	//Constructor & Destructor
 	gamePlay();
@@ -40,11 +43,17 @@ protected:
 	//Init
 	void initVariables();
 	void initWindows();
+	void initFont();
+	void initTextPoint();
 	//Update Secundario
+	void updateText();
 	//	<Collision>
 	void updateCollision();
 	//	<KeyBoard Press>
 	void updateEvent();
+	
 	//Draw
+	void drawTextPoint(sf::RenderTarget& target);
+	
 };
 
