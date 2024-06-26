@@ -9,6 +9,11 @@ SwagBalls::SwagBalls(const sf::RenderWindow& window)
 SwagBalls::~SwagBalls()
 {
 }
+//======= Sets & Gets =======
+const sf::CircleShape SwagBalls::getShape() const
+{
+	return this->shape;
+}
 //======= FUNCIONES PRINCIPALES =======
 void SwagBalls::upDate()
 {
@@ -34,7 +39,7 @@ void SwagBalls::initShapes(const sf::RenderWindow& window)
 			)
 	);
 }
-//======= Sets & Gets =======
+
 
 
 //======= FUNCIONES AUX =======

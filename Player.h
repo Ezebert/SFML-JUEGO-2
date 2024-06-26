@@ -5,12 +5,16 @@ class Player
 private:
 	sf::RectangleShape shape;
 	float speed;
+	int hp;
+	int maxHp;
+	int point;
 public:
 	//Constructor y Destructor
 	Player();
 	Player(float x, float y);
 	~Player();
 	//Sets & Gets
+	const sf::RectangleShape &getShape()const;
 	//Funciones Pricipales
 	void update(sf::RenderTarget* target);
 	void draw(sf::RenderTarget* target);

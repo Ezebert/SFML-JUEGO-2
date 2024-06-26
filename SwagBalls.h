@@ -6,23 +6,16 @@ private:
 	//Variables
 	sf::CircleShape shape;
 	//Game Clases
-
 	//Windows
-
 	//Mouse Posicion
-
 	//Resources
-
-	//Text
-
+	// 	//Text
 public:
 	//Constructor (Init_Variables / Windows / etc) 
 	SwagBalls(const sf::RenderWindow& window);
-	~SwagBalls();
-	//Destructor
-
+	~SwagBalls(); //Destructor
 	//Sets & Gets
-
+	const sf::CircleShape getShape()const;
 	//Funciones Principales
 	void upDate();	//<Collision>& <Keyboard Press>
 	void draw(sf::RenderTarget&target);

@@ -40,7 +40,10 @@ protected:
 	//Init
 	void initVariables();
 	void initWindows();
-	//Update
+	//Update Secundario
+	//	<Collision>
+	void updateCollision();
+	//	<KeyBoard Press>
 	void updateEvent();
 	//Draw
 };

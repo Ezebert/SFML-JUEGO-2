@@ -16,7 +16,13 @@ Player::Player(float x, float y)
 Player::~Player()
 {
 }
+
 //======= Sets & Gets =======
+const sf::RectangleShape& Player::getShape() const
+{
+	// TODO: Insertar una instrucción "return" aquí
+	return this->shape;
+}
 //======= FUNCIONES PRINCIPALES =======
 void Player::update(sf::RenderTarget* target)
 {
@@ -38,6 +44,9 @@ void Player::draw(sf::RenderTarget* target)
 void Player::initVariables()
 {
 	this->speed = 10.f;
+	this->hp = 10;
+	this->maxHp = hp;
+	this->point = 0;
 }
 void Player::initShape()
 {

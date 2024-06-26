@@ -17,11 +17,13 @@ const bool gamePlay::getEndGame() const
 //======= FUNCIONES =======
 void gamePlay::upDate()
 {
-	this->updateEvent();
+	this->updateCollision();
 
+	this->updateEvent();
 	this->player.update(this->window);
 
 	this->spawnSwagBalls();
+	
 	
 } 
 
@@ -74,10 +76,21 @@ void gamePlay::initWindows()
 	this->window = new sf::RenderWindow(this->videoMode, "SFML JUEGO 2", sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(60);
 }
-//======= UPDATE =======
+
+//======= UPDATE <Collision> =======
+void gamePlay::updateCollision()
+{
+	for (size_t i = 0; i < this->swagBalls.size(); i++)
+	{
+		if (this->player.getShape().getGlobalBounds().intersects(this->swagBalls[i].getShape().getGlobalBounds()))
+			swagBalls.erase(swagBalls.begin() + i); 
+	}
+}
+//======= UPDATE <KeyBoard Press> =======
+
 void gamePlay::updateEvent()
 {
-	while(this->window->pollEvent(this->event)){
+	while (this->window->pollEvent(this->event)) {
 		switch (this->event.type)
 		{
 		case sf::Event::Closed:
