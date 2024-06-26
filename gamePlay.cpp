@@ -18,14 +18,24 @@ const bool gamePlay::getEndGame() const
 void gamePlay::upDate()
 {
 	this->updateEvent();
+
 	this->player.update(this->window);
+
+	this->spawnSwagBalls();
+	
 } 
+
 
 void gamePlay::draw()
 {
 	this->window->clear();
 	//this->window->draw();
 	this->player.draw(this->window);
+
+	for (auto& e : this->swagBalls)
+	{
+		e.draw(*this->window);
+	}
 	this->window->display();
 }
 
@@ -35,10 +45,27 @@ const bool gamePlay::runnig() const
 	return this->window->isOpen();
 }
 
+void gamePlay::spawnSwagBalls()
+{
+	//Timer
+	if (this->spawTimer < this->spawTimerMax)
+		this->spawTimer += 1.f;
+	else if (this->swagBalls.size() < this->maxSwagsBalls) {
+		this->swagBalls.push_back(SwagBalls(*this->window));
+
+	}
+
+}
+
 //======= INIT =======
 void gamePlay::initVariables()
 {
 	this->endGame = false;
+	
+	this->spawTimer = 10.f;
+	this->spawTimerMax = this->spawTimer;
+	this->maxSwagsBalls = 10;
+
 }
 
 void gamePlay::initWindows()

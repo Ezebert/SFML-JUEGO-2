@@ -3,12 +3,16 @@
 
 //INCLUDE CLASS
 #include "Player.h"
-
+#include "SwagBalls.h" 
 class gamePlay
 {
 private:
 	//Variables
 	bool endGame;
+
+	float spawTimerMax;
+	float spawTimer;
+	int maxSwagsBalls;
 
 	//Windows
 	sf::VideoMode videoMode;
@@ -16,14 +20,10 @@ private:
 	sf::Event event;
 	//Game Clases
 	Player player;
+	std::vector <SwagBalls> swagBalls;
 	//Mouse Posicion
-	
-	
-	
 	//Resources
-	
-	//Text
-		
+	//Text	
 public:
 	//Constructor & Destructor
 	gamePlay();
@@ -35,6 +35,7 @@ public:
 	void draw();
 	//Accesorios
 	const bool runnig()const;
+	void spawnSwagBalls();
 protected:
 	//Init
 	void initVariables();

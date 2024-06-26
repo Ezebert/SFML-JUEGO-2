@@ -48,17 +48,17 @@ void Player::initShape()
 //======= UPDATE <Collision> =======
 void Player::updateWindowsBoundsCollision(sf::RenderTarget* target)
 {	//Left = x and Top = y | Coordenadas FloatRect
-	sf::FloatRect playerBounds = this->shape.getGlobalBounds();
+	//sf::FloatRect playerBounds = this->shape.getGlobalBounds();
 	//Left & Right
-	if (playerBounds.left < 0.f)
-		this->shape.setPosition(0.f, playerBounds.top);
-	else if (playerBounds.left + playerBounds.width > target->getSize().x)
-		this->shape.setPosition(target->getSize().x - playerBounds.width, playerBounds.top);
+	if (this->shape.getGlobalBounds().left <= 0.f)
+		this->shape.setPosition(0.f, this->shape.getGlobalBounds().top);
+	if (this->shape.getGlobalBounds().left + this->shape.getGlobalBounds().width >= target->getSize().x)
+		this->shape.setPosition(target->getSize().x - this->shape.getGlobalBounds().width, this->shape.getGlobalBounds().top);
 	//Down & Top
-	if (playerBounds.top < 0.f)
-		this->shape.setPosition(playerBounds.left, 0.f);
-	else if (playerBounds.top + playerBounds.height > target->getSize().y)
-		this->shape.setPosition(playerBounds.left, target->getSize().y - playerBounds.height);
+	if (this->shape.getGlobalBounds().top <= 0.f)
+		this->shape.setPosition(this->shape.getGlobalBounds().left, 0.f);
+	if (this->shape.getGlobalBounds().top + this->shape.getGlobalBounds().height >= target->getSize().y)
+		this->shape.setPosition(this->shape.getGlobalBounds().left, target->getSize().y - this->shape.getGlobalBounds().height);
 }
 //======= UPDATE <KeyBoard Press> =======
 void Player::updateInput()
