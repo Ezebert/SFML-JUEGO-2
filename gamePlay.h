@@ -46,7 +46,7 @@ protected:
 	void initFont();
 	void initTextPoint();
 	//Update Secundario
-	void updateText();
+	void updateTextPoint();
 	//	<Collision>
 	void updateCollision();
 	//	<KeyBoard Press>

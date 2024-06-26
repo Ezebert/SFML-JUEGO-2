@@ -23,6 +23,14 @@ const sf::RectangleShape& Player::getShape() const
 	// TODO: Insertar una instrucción "return" aquí
 	return this->shape;
 }
+int Player::getHp()
+{
+	return this->hp;
+}
+int Player::getMaxHp()
+{
+	return this->maxHp;
+}
 //======= FUNCIONES PRINCIPALES =======
 void Player::update(sf::RenderTarget* target)
 {
@@ -37,8 +45,23 @@ void Player::draw(sf::RenderTarget* target)
 }
 
 
-
 //======= FUNCIONES AUX =======
+void Player::takeDamage(int damage)
+{
+	if (this->hp > 0)
+		this->hp -= damage;
+	if (this->hp < 0)
+		this->hp = 0;
+}
+
+void Player::gainHealth(int health)
+{
+	if (this->hp < this->maxHp)
+		this->hp += health;
+	if (this->hp > this->maxHp)
+		this->hp = this->maxHp;
+}
+
 
 //======= INIT =======
 void Player::initVariables()

@@ -14,10 +14,14 @@ public:
 	~Player();
 	//Sets & Gets
 	const sf::RectangleShape &getShape()const;
+	int getHp();
+	int getMaxHp();
 	//Funciones Pricipales
 	void update(sf::RenderTarget* target);
 	void draw(sf::RenderTarget* target);
 	//Funciones Aux
+	void takeDamage(int damage);
+	void gainHealth(int health);
 protected:
 	//init
 	void initVariables();

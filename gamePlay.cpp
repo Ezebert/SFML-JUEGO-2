@@ -22,7 +22,7 @@ const bool gamePlay::getEndGame() const
 //======= FUNCIONES =======
 void gamePlay::upDate()
 {
-	this->updateText();
+	this->updateTextPoint();
 
 	this->updateCollision();
 	this->spawnSwagBalls();
@@ -61,10 +61,10 @@ void gamePlay::spawnSwagBalls()
 	if (this->spawTimer < this->spawTimerMax)
 		this->spawTimer += 1.f;
 	else if (this->swagBalls.size() < this->maxSwagsBalls) {
-		this->swagBalls.push_back(SwagBalls(*this->window));
-
-	}
-
+		//Agrega un nuevo enemigo
+		//this->swagBalls.push_back(SwagBalls(*this->window));
+		this->swagBalls.push_back(SwagBalls(*this->window,rand()%SwagBallsType::NROFTYPES));
+	}	
 }
 
 //======= INIT =======
@@ -104,10 +104,11 @@ void gamePlay::initTextPoint()
 
 }
 //======= UPDATE Secundario ======= 
-void gamePlay::updateText()
+void gamePlay::updateTextPoint()
 {
 	std::stringstream ss;
-	ss << " Point: " << this->points;
+	ss << " Point: " << this->points
+		<<" Health: " << this->player.getHp() << " / " << this->player.getMaxHp();
 	this->textPoint.setString(ss.str());
 }
 
@@ -117,8 +118,21 @@ void gamePlay::updateCollision() //Enemies & Player
 	for (size_t i = 0; i < this->swagBalls.size(); i++)
 	{
 		if (this->player.getShape().getGlobalBounds().intersects(this->swagBalls[i].getShape().getGlobalBounds())) {
+			switch (this->swagBalls[i].getType())
+			{
+			case SwagBallsType::DAMEGING:
+				this->player.takeDamage(1);
+				break;
+			case SwagBallsType::HEALING:
+				this->player.gainHealth(1);
+				break;
+			default:
+				this->points++;
+				break;
+			}
+			
+
 			swagBalls.erase(swagBalls.begin() + i);
-			this->points++;
 		}
 			
 
