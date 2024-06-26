@@ -10,7 +10,7 @@ int main()
     gamePlay game;
 
     //Game Loop
-    while (game.runnig() && !game.getEndGame())
+    while (game.runnig() )
     {   
         //Update
         game.upDate();

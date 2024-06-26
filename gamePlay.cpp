@@ -9,6 +9,7 @@ gamePlay::gamePlay()
 
 	this->initFont();
 	this->initTextPoint();
+	this->initTextEndGame();
 }
 gamePlay::~gamePlay()
 {
@@ -22,15 +23,29 @@ const bool gamePlay::getEndGame() const
 //======= FUNCIONES =======
 void gamePlay::upDate()
 {
-	this->updateTextPoint();
-
-	this->updateCollision();
-	this->spawnSwagBalls();
-
 	this->updateEvent();
-	this->player.update(this->window);
+	if (!this->endGame) {
+		this->updatePlayer();
+		this->updateTextPoint();
+
+		this->updateCollision();
+		this->spawnSwagBalls();
+	}
 	
-} 
+	
+}
+void gamePlay::updatePlayer()
+{
+	this->player.update(this->window);
+
+	//check life
+	if (this->player.getHp() <= 0) {
+		this->endGame = true;
+	
+	}
+	
+}
+
 
 
 void gamePlay::draw()
@@ -45,14 +60,21 @@ void gamePlay::draw()
 	}
 
 	this->drawTextPoint(*this->window);
+
+	if (this->endGame == true)
+	{
+		this->window->draw(this->textEndGame);
+	}
+
 	//=============================
 	this->window->display();
+	
 }
 
 //======= FUNCIONES AUX =======
 const bool gamePlay::runnig() const
 {
-	return this->window->isOpen();
+	return this->window->isOpen();// && !this->endGame;
 }
 
 void gamePlay::spawnSwagBalls()
@@ -63,8 +85,20 @@ void gamePlay::spawnSwagBalls()
 	else if (this->swagBalls.size() < this->maxSwagsBalls) {
 		//Agrega un nuevo enemigo
 		//this->swagBalls.push_back(SwagBalls(*this->window));
-		this->swagBalls.push_back(SwagBalls(*this->window,rand()%SwagBallsType::NROFTYPES));
+		this->swagBalls.push_back(SwagBalls(*this->window,this->randBallType()));
+		this->spawTimer = 0.f;
 	}	
+}
+
+int gamePlay::randBallType()
+{
+	int type = SwagBallsType::DeFAULT;
+	int randValue = rand() % 100 + 1; // Entr 1 y 100
+	if (randValue > 60 && randValue <= 90)
+		type = SwagBallsType::DAMEGING;
+	if (randValue > 90 && randValue <= 100)
+		type = SwagBallsType::HEALING;
+	return type;
 }
 
 //======= INIT =======
@@ -102,6 +136,17 @@ void gamePlay::initTextPoint()
 	this->textPoint.setString(" N/D ");
 
 
+
+
+}
+void gamePlay::initTextEndGame()
+{
+	this->textEndGame.setFont(this->font);
+	this->textEndGame.setCharacterSize(60);
+	this->textEndGame.setFillColor(sf::Color::Red);
+	this->textEndGame.setString("Gamame Over ");
+	this->textEndGame.setPosition(sf::Vector2f(20,300));
+
 }
 //======= UPDATE Secundario ======= 
 void gamePlay::updateTextPoint()
@@ -121,7 +166,7 @@ void gamePlay::updateCollision() //Enemies & Player
 			switch (this->swagBalls[i].getType())
 			{
 			case SwagBallsType::DAMEGING:
-				this->player.takeDamage(1);
+				this->player.takeDamage(100);
 				break;
 			case SwagBallsType::HEALING:
 				this->player.gainHealth(1);

@@ -26,6 +26,7 @@ private:
 	//Text	
 	sf::Font font;
 	sf::Text textPoint;
+	sf::Text textEndGame;
 	
 public:
 	//Constructor & Destructor
@@ -35,16 +36,19 @@ public:
 	const bool getEndGame()const;
 	//Funciones
 	void upDate();
+	void updatePlayer();
 	void draw();
 	//Accesorios
 	const bool runnig()const;
 	void spawnSwagBalls();
+	int randBallType();
 protected:
 	//Init
 	void initVariables();
 	void initWindows();
 	void initFont();
 	void initTextPoint();
+	void initTextEndGame();
 	//Update Secundario
 	void updateTextPoint();
 	//	<Collision>
