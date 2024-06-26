@@ -145,9 +145,13 @@ void gamePlay::initTextEndGame()
 	this->textEndGame.setCharacterSize(60);
 	this->textEndGame.setFillColor(sf::Color::Red);
 	this->textEndGame.setString("Gamame Over ");
+	// Calcular la posición del texto
+	sf::FloatRect textRect = textEndGame.getLocalBounds();
+	textEndGame.setOrigin(textRect.left + textRect.width / 2.0f,
+		textRect.top + textRect.height / 2.0f);
 	this->textEndGame.setPosition(sf::Vector2f(
-		this->window->getSize().x / 2 ,
-		this->window->getSize().y-textEndGame.getGlobalBounds().width));
+		this->window->getSize().x / 2.0f,
+		this->window->getSize().y / 2.0f));
 
 }
 //======= UPDATE Secundario ======= 
